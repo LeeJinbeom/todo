@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'second/style.css' %}">
+</head>
+<body>
+    <div id="menu">
+        <div id="logo">Todo&Favorite</div>
+        <ul><!-- http://localhost:8000/second/todo/2 -->
+            <li><a href="{% url 'second:index' %}">Home</a></li>
+            <li><a href="{% url 'second:favourite' %}">Favorite</a></li>
+            <li><a href="{% url 'second:todo' %}">Todo</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+    
+</body>
+</html>
