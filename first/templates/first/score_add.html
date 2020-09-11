@@ -1,0 +1,27 @@
+<form action="{% url 'first:scores_add' %}" method="post">
+{% csrf_token %}
+<div>
+    <label>이름</label>
+    <input name="name" type="text"/>
+</div>
+<div>
+    <label>수학</label>
+    <input name="math" type="text"/>
+</div>
+<div>
+    <label>과학</label>
+    <input name="science" type="text"/>
+</div>
+<div>
+    <label>영어</label>
+    <input name="english" type="text"/>
+</div>
+<div>
+    <input type="submit" value="등록"/>
+</div>
+</form>
+{% for score in scores %}
+<div>
+{{ score.name }} {{ score.math }} {{ score.science }} {{ score.english }}
+</div>
+{% endfor %}

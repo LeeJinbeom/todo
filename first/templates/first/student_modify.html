@@ -1,0 +1,20 @@
+<script>
+
+    alert_msg = () => {
+        let form = document.querySelector('#del-form');
+        let msg = confirm('삭제하시겠습니까?');
+        if (msg){ // 강제로 히든 폼 형식을 만든다.
+            form.submit();
+        }
+    };
+</script>
+
+<input type="button" values="버튼" onClick="alert_msg()"/>
+
+<form id="del-form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="수정"/>
+</form>

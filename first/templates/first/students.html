@@ -6,12 +6,14 @@
 {% block content %}
     <h3>{{ text|truncatechars:10 }}</h3>
     <h3>{{ date|date:'Y-m-d' }}</h3>
+    <a href="{% url 'first:student_add' %}">등록</a>
     {% for student in students %}
     <!-- 요 안에있는 내용들이 반복됩니다 -->
     <div>
         {{ student.name }}
         {{ student.address }}
         {{ student.email }}
+        <a href="{% url 'first:student_modify' student.id %}">수정</a>
     </div>
     {% endfor %}
 {% endblock %}
