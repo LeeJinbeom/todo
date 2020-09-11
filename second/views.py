@@ -54,6 +54,11 @@ def favourite_modify(request, seq):
                 'form': form
             })
 
+def favourite_delete(request, seq):
+    favourite = Favourite.objects.get(pk=seq)
+    favourite.delete()
+    return redirect("second:favourite")
+
 def todo(request):
     
     pendings = Todo.objects.filter(status='pending')
@@ -119,3 +124,8 @@ def todo_modify(request, seq):
             return render(request, "second/todo_modify.html", {
                 'form': form
             })
+
+def todo_delete(request, seq):
+    todo = Todo.objects.get(pk=seq)
+    todo.delete()
+    return redirect("second:todo")
