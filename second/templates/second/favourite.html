@@ -8,7 +8,9 @@
 {% block content %}
 <h3>
 즐겨찾기
-<img src="{% static 'second/images/icon_add.png' %}"/>
+<a href="{% url 'second:favourite_add' %}">
+    <img src="{% static 'second/images/icon_add.png' %}"/>
+</a>
 </h3>
 <div>
 {% for data in datas %}

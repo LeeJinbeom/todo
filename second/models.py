@@ -27,9 +27,14 @@ class TodoGroup(models.Model):
         return self.name
 
 class Todo(models.Model):
+    STATUS_CHOICE = (
+        ('pending', '할일'),
+        ('inporgress', '진행중'),
+        ('end', '완료'),
+    )
     seq = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
-    status = models.CharField(max_length=10)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICE)
     reg_date = models.DateField(auto_now_add=True)
     end_date = models.DateField()
     del_yn = models.BooleanField(default=False)

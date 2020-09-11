@@ -8,7 +8,9 @@
 {% block content %}
 <h3>
 할일
-<img src="{% static 'second/images/icon_add.png' %}"/>
+<a href="{% url 'second:todo_add' %}">
+    <img src="{% static 'second/images/icon_add.png' %}"/>
+</a>
 </h3>
 
 

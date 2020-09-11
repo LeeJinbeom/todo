@@ -12,9 +12,9 @@
     <div id="menu">
         <div id="logo">Todo&Favorite</div>
         <ul><!-- http://localhost:8000/second/todo/2 -->
-            <li><a href="{% url 'second:index' %}">Home</a></li>
-            <li><a href="{% url 'second:favourite' %}">Favorite</a></li>
-            <li><a href="{% url 'second:todo' %}">Todo</a></li>
+            <li><img src="{% static 'second/images/icon_home.png' %}"/><a href="{% url 'second:index' %}">Home</a></li>
+            <li><img src="{% static 'second/images/icon_favorite.png' %}"/><a href="{% url 'second:favourite' %}">Favorite</a></li>
+            <li><img src="{% static 'second/images/icon_todo.png' %}"/><a href="{% url 'second:todo' %}">Todo</a></li>
         </ul>
     </div>
     <div id="content">

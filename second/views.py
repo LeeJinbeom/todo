@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Favourite, Todo
+from .forms import FavouriteModelForm, TodoModelForm
 
 # Create your views here.
 def index(request):
@@ -17,6 +18,22 @@ def favourite_detail(request, seq):
     return render(request, "second/favourite_detail.html",{
         'detail': detail
     })
+
+def favourite_add(request):
+    if request.method == 'GET':
+        form = FavouriteModelForm()
+        return render(request, "second/favourite_add.html", {
+            'form': form
+        })
+    elif request.method == 'POST':
+        form = FavouriteModelForm(request.POST)
+        if form.is_valid():
+            favourite = form.save()
+            return redirect("second:favourite_detail", favourite.seq)
+        else:
+            return render(request, "second/favourite_add.html", {
+                'form': form
+            })
 
 def todo(request):
     
@@ -45,3 +62,22 @@ def todo_detail(request, seq):
     return render(request, "second/todo_detail.html", {
         'detail': detail
     })
+
+def todo_add(request):
+    return render(request, "second/todo_add.html")
+
+def todo_add(request):
+    if request.method == 'GET':
+        form = TodoModelForm()
+        return render(request, "second/todo_add.html", {
+            'form': form
+        })
+    elif request.method == 'POST':
+        form = TodoModelForm(request.POST)
+        if form.is_valid():
+            todo = form.save()
+            return redirect("second:todo_detail", todo.seq)
+        else:
+            return render(request, "second/todo_add.html", {
+                'form': form
+            })
