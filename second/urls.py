@@ -8,7 +8,9 @@ urlpatterns = [
     path('favourite', views.favourite, name='favourite'),
     path('favourite/<int:seq>', views.favourite_detail, name='favourite_detail'),
     path('favourite/add', views.favourite_add, name='favourite_add'),
+    path('favourite/<int:seq>/modify', views.favourite_modify, name='favourite_modify'),
     path('todo', views.todo, name='todo'),
     path('todo/<int:seq>', views.todo_detail, name='todo_detail'),
     path('todo/add', views.todo_add, name='todo_add'),
+    path('todo/<int:seq>/modify', views.todo_modify, name='todo_modify'),
 ]

@@ -35,6 +35,25 @@ def favourite_add(request):
                 'form': form
             })
 
+def favourite_modify(request, seq):
+
+    favourite = Favourite.objects.get(pk=seq)
+
+    if request.method == 'GET':
+        form = FavouriteModelForm(instance=favourite)
+        return render(request, "second/favourite_modify.html", {
+            'form': form
+        })
+    elif request.method == 'POST':
+        form = FavouriteModelForm(request.POST, instance=favourite)
+        if form.is_valid():
+            favourite = form.save()
+            return redirect("second:favourite_detail", favourite.seq)
+        else:
+            return render(request, "second/favourite_modify.html", {
+                'form': form
+            })
+
 def todo(request):
     
     pendings = Todo.objects.filter(status='pending')
@@ -79,5 +98,24 @@ def todo_add(request):
             return redirect("second:todo_detail", todo.seq)
         else:
             return render(request, "second/todo_add.html", {
+                'form': form
+            })
+
+def todo_modify(request, seq):
+
+    todo = Todo.objects.get(pk=seq)
+
+    if request.method == 'GET':
+        form = TodoModelForm(instance=todo)
+        return render(request, "second/todo_modify.html", {
+            'form': form
+        })
+    elif request.method == 'POST':
+        form = TodoModelForm(request.POST, instance=todo)
+        if form.is_valid():
+            todo = form.save()
+            return redirect("second:todo_detail", todo.seq)
+        else:
+            return render(request, "second/todo_modify.html", {
                 'form': form
             })

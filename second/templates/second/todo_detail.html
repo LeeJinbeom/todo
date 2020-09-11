@@ -6,7 +6,15 @@ Todo
 {% endblock %}
 
 {% block content %}
-<h3>{{ detail.name }}</h3>
+<h3>
+{{ detail.name }}
+ <a>
+    <img src="{% static 'second/images/icon_delete.png' %}"/>
+</a>
+<a href="{% url 'second:todo_modify' detail.seq %}" style="margin-right:10px;">
+    <img src="{% static 'second/images/icon_modify.png' %}"/>
+</a>
+</h3>
 <div id="detail">
 <ul>
     <li><span>SEQ</span>{{ detail.seq }}</li>
