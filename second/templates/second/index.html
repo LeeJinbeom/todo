@@ -6,5 +6,6 @@ Todo&Favorite
 {% endblock %}
 
 {% block content %}
-    <img src="{% static 'second/images/icon_delete.png' %}"/>
+    {{ request.user.is_authenticated }}
+    {{ request.user.username }}
 {% endblock %}

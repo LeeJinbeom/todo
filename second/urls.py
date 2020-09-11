@@ -15,4 +15,7 @@ urlpatterns = [
     path('todo/add', views.todo_add, name='todo_add'),
     path('todo/<int:seq>/modify', views.todo_modify, name='todo_modify'),
     path('todo/<int:seq>/delete', views.todo_delete, name='todo_delete'),
+    path('signup', views.signup, name='signup'),
+    path('signin', views.signin, name='signin'),
+    path('logout', views.logout_view, name='logout'),
 ]
