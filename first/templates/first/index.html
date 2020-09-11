@@ -2,8 +2,21 @@
 <html>
 <head>
     <title>환영합니다</title>
+    <script>
+        document.cookie = "test=javascript"
+        console.log(document.cookie)
+    </script>
 </head>
 <body>
-    <h3>환영합니다</h3>
+    <h3>{{ request.COOKIES.name }}</h3>
+    <h3>{{ request.COOKIES.test }}</h3>
+    {% if request.session.userid %}
+        <h3>로그인되어있음</h3>
+        <h3>{{ request.session.userid }}</h3>
+    {% else %}
+        <h3>로그아웃상태</h3>
+    {% endif %}
+
+
 </body>
 </html>

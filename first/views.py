@@ -9,9 +9,18 @@ from .forms import StudentForm, StudentModelForm
 @csrf_exempt
 def index(request):
 
-    print('진범', request.method)
-    print('진범', request.GET)
-    print('진범', request.headers)
+    # print('진범', request.method)
+    # print('진범', request.GET)
+    # print('진범', request.headers)
+
+    # print(request.COOKIES)
+    if True:
+        request.session['userid'] = 'jinbeom'
+    
+    
+    # request.session['count'] = 0
+    # del request.session['userid']
+
 
     return render(request, 'first/index.html')
 
@@ -154,5 +163,9 @@ def score_add(request):
         )
 
         return redirect("first:scores")
-        
     
+
+def make_cookie(request, name):
+    res = HttpResponse()
+    res.set_cookie('name', name)
+    return res
