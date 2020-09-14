@@ -79,12 +79,26 @@ def favourite_modify(request, seq):
 def favourite_delete(request, seq):
     
     try:
-        detail = Favourite.objects.get(pk=seq, reg_user=request.user)
+        favourite = Favourite.objects.get(pk=seq, reg_user=request.user)
     except:
         return HttpResponseForbidden()
 
     favourite.delete()
     return redirect("second:favourite")
+
+def favourite_delete_ajax(request, seq):
+    
+    try:
+        favourite = Favourite.objects.get(pk=seq, reg_user=request.user)
+    except:
+        return HttpResponseForbidden()
+
+    favourite.delete()
+
+    data = Favourite.objects.filter(reg_user=request.user)
+    return render(request, "second/favourite_item.html",
+        {'datas':data}
+    )
 
 @login_required
 def todo(request):

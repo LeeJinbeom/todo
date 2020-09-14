@@ -1,30 +1,4 @@
-{% extends 'second/layout.html' %}
 {% load static %}
-
-{% block title %}
-즐겨찾기
-{% endblock %}
-
-{% block content %}
-<script>
-
-let deleteFavourite = (seq) => {
-    fetch(`/second/favourite/${seq}/delete/ajax`)
-    .then(response => response.text())
-    .then(response => {
-        items = document.querySelector("#items")
-        items.innerHTML = response
-    })
-}
-
-</script>
-<h3>
-즐겨찾기 <input type="text"/>
-<a href="{% url 'second:favourite_add' %}">
-    <img src="{% static 'second/images/icon_add.png' %}"/>
-</a>
-</h3>
-<div id="items">
 {% for data in datas %}
     <div class="item">
         <div class="name">
@@ -42,5 +16,3 @@ let deleteFavourite = (seq) => {
         </div>
     </div>
 {% endfor %}
-</div>
-{% endblock %}

@@ -72,7 +72,7 @@ h3 a img {
 
 #content .item {
     padding: 15px;
-    overflow: auto;
+    height: 20px;
     border: 1px solid #c8c8cd;
     border-radius: 6px;
     margin-bottom: 10px;
@@ -139,4 +139,34 @@ h3 a img {
 
 #login-menu div:nth-child(2) {
     margin-right: 10px;
+}
+
+.group {
+    position: relative;
+    cursor: pointer;
+}
+
+.group:hover .mini_menu {
+    display: block;
+}
+
+.mini_menu {
+    display: none;
+    text-align: center;
+    border: 1px solid #c8c8cd;
+    background-color: white;
+    width: 80px;
+    font-size: 12px;
+    top: 10px;
+    left: 10px;
+    position: absolute;
+}
+
+.mini_menu div {
+    border-bottom: 1px solid #c8c8cd;
+    line-height: 30px;
+}
+
+.mini_menu div:last-child {
+    border-bottom: none;
 }

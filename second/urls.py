@@ -18,4 +18,5 @@ urlpatterns = [
     path('signup', views.signup, name='signup'),
     path('signin', views.signin, name='signin'),
     path('logout', views.logout_view, name='logout'),
+    path('favourite/<int:seq>/delete/ajax', views.favourite_delete_ajax, name='favourite_delete_ajax'),
 ]
