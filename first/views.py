@@ -88,7 +88,7 @@ def student_modify(request, id):
             'form':form
         })
     elif request.method == 'POST':
-        form = StudentModelForm(request.POST, instance=student)
+        form = StudentModelForm(request.POST, request.FILES, instance=student)
         if form.is_valid():
             form.save()
             return redirect("first:students")

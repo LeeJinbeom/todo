@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Favourite, Todo
+from django.http import Http404, HttpResponseForbidden
+from .models import Favourite, Todo, User
 from .forms import FavouriteModelForm, TodoModelForm, SignupForm, LoginForm
 
 # Create your views here.
@@ -12,18 +13,26 @@ def index(request):
 
 @login_required
 def favourite(request):
-    data = Favourite.objects.all()
+    data = Favourite.objects.filter(reg_user=request.user)
     return render(request, "second/favourite.html",
         {'datas':data}
     )
 
+@login_required
 def favourite_detail(request, seq):
-    detail = Favourite.objects.get(pk=seq)
-    # detail = Favourite.objects.get(seq=seq)
+    try:
+        detail = Favourite.objects.get(pk=seq, reg_user=request.user)
+    except:
+        return HttpResponseForbidden()
+    
+    #detail = get_object_or_404(Favourite, pk=seq, reg_user=request.user)
+
+    #detail = Favourite.objects.get(seq=seq)
     return render(request, "second/favourite_detail.html",{
         'detail': detail
     })
 
+@login_required
 def favourite_add(request):
     if request.method == 'GET':
         form = FavouriteModelForm()
@@ -31,7 +40,10 @@ def favourite_add(request):
             'form': form
         })
     elif request.method == 'POST':
-        form = FavouriteModelForm(request.POST)
+
+        reg_user = Favourite(reg_user=request.user)
+        form = FavouriteModelForm(request.POST, instance=reg_user)
+
         if form.is_valid():
             favourite = form.save()
             return redirect("second:favourite_detail", favourite.seq)
@@ -40,9 +52,13 @@ def favourite_add(request):
                 'form': form
             })
 
+@login_required
 def favourite_modify(request, seq):
 
-    favourite = Favourite.objects.get(pk=seq)
+    try:
+        detail = Favourite.objects.get(pk=seq, reg_user=request.user)
+    except:
+        return HttpResponseForbidden()
 
     if request.method == 'GET':
         form = FavouriteModelForm(instance=favourite)
@@ -59,16 +75,23 @@ def favourite_modify(request, seq):
                 'form': form
             })
 
+@login_required
 def favourite_delete(request, seq):
-    favourite = Favourite.objects.get(pk=seq)
+    
+    try:
+        detail = Favourite.objects.get(pk=seq, reg_user=request.user)
+    except:
+        return HttpResponseForbidden()
+
     favourite.delete()
     return redirect("second:favourite")
 
+@login_required
 def todo(request):
     
-    pendings = Todo.objects.filter(status='pending')
-    inprogresss = Todo.objects.filter(status='inporgress')
-    ends = Todo.objects.filter(status='end')
+    pendings = Todo.objects.filter(status='pending', reg_user=request.user)
+    inprogresss = Todo.objects.filter(status='inporgress', reg_user=request.user)
+    ends = Todo.objects.filter(status='end', reg_user=request.user)
     
     # data = Todo.objects
     
@@ -86,15 +109,19 @@ def todo(request):
         }
     )
 
+@login_required
 def todo_detail(request, seq):
-    detail = Todo.objects.get(pk=seq)
+
+    try:
+        detail = Todo.objects.get(pk=seq, reg_user=request.user)
+    except:
+        return HttpResponseForbidden()
+
     return render(request, "second/todo_detail.html", {
         'detail': detail
     })
 
-def todo_add(request):
-    return render(request, "second/todo_add.html")
-
+@login_required
 def todo_add(request):
     if request.method == 'GET':
         form = TodoModelForm()
@@ -102,7 +129,10 @@ def todo_add(request):
             'form': form
         })
     elif request.method == 'POST':
-        form = TodoModelForm(request.POST)
+
+        todo = Todo(reg_user=request.user)
+        form = TodoModelForm(request.POST, instance=todo)
+
         if form.is_valid():
             todo = form.save()
             return redirect("second:todo_detail", todo.seq)
@@ -111,9 +141,14 @@ def todo_add(request):
                 'form': form
             })
 
+@login_required
 def todo_modify(request, seq):
 
-    todo = Todo.objects.get(pk=seq)
+    try:
+        todo = Todo.objects.get(pk=seq, reg_user=request.user)
+    except:
+        return HttpResponseForbidden()
+   
 
     if request.method == 'GET':
         form = TodoModelForm(instance=todo)
@@ -130,8 +165,14 @@ def todo_modify(request, seq):
                 'form': form
             })
 
+@login_required
 def todo_delete(request, seq):
-    todo = Todo.objects.get(pk=seq)
+
+    try:
+        todo = Todo.objects.get(pk=seq, reg_user=request.user)
+    except:
+        return HttpResponseForbidden()
+
     todo.delete()
     return redirect("second:todo")
 

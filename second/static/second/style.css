@@ -128,3 +128,15 @@ h3 a img {
     width: 100px;
     font-weight: 700;
 }
+
+#login-menu {
+    margin-top: 10px;
+}
+
+#login-menu div {
+    float: right;
+}
+
+#login-menu div:nth-child(2) {
+    margin-right: 10px;
+}

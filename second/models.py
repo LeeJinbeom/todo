@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class User(AbstractUser):
     phone_number = models.CharField(max_length=20, blank=True)
+    # 여기다 추가해주세요~
 
 class FavouriteGroup(models.Model):
     seq = models.AutoField(primary_key=True)
@@ -20,6 +21,7 @@ class Favourite(models.Model):
     memo = models.TextField()
     reg_date = models.DateField(auto_now_add=True)
     group = models.ForeignKey(FavouriteGroup, on_delete=models.CASCADE)
+    reg_user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class TodoGroup(models.Model):
     seq = models.AutoField(primary_key=True)
@@ -43,3 +45,4 @@ class Todo(models.Model):
     end_date = models.DateField()
     del_yn = models.BooleanField(default=False)
     group = models.ForeignKey(TodoGroup, on_delete=models.CASCADE)
+    reg_user = models.ForeignKey(User, on_delete=models.CASCADE)

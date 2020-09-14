@@ -18,6 +18,15 @@
         </ul>
     </div>
     <div id="content">
+        <div id="login-menu">
+            {% if request.user.is_authenticated %}
+                <div><a href="{% url 'second:logout' %}">로그아웃</a></div>
+                <div>{{ request.user.username }}</div>
+            {% else %}
+                <div><a href="{% url 'second:signup' %}">회원가입</a></div>
+                <div><a href="{% url 'second:signin' %}">로그인</a></div>
+            {% endif %}
+        </div>
         {% block content %}
         {% endblock %}
     </div>
